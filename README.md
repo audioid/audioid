@@ -1,4 +1,4 @@
-# Aʊdioid
+# Aʊdioid [![GoDoc](https://godoc.org/github.com/audioid/audioid?status.svg)](https://godoc.org/github.com/audioid/audioid)
 
 ![Audioid — Fast and Reliable audio tools](.github/images/banner@2x.png)
 
@@ -12,7 +12,8 @@ This package contains implementation for supported audio formats.
 You can use implementations directly, if you want minimal dependecies.
 
 For example, we have a simple example app for you to try it in action by running `./examples/simple`:
-```
+
+```go
 package main
 
 import (
