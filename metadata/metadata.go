@@ -7,7 +7,11 @@
 // You may obtain a copy of the License at https://github.com/audioid/audioid/tree/master/LICENSE
 package metadata
 
-import "time"
+import (
+	"github.com/audioid/audioid/errors"
+	"strconv"
+	"time"
+)
 
 type ChecksumAlgo uint8
 
@@ -98,4 +102,44 @@ type Track struct {
 	Checksum Checksum
 
 	Pictures []Picture
+}
+
+// ParseDate for getting date in time format.
+func (t *Track) ParseDate() (*time.Time, error) {
+	date, err := time.Parse("2006", t.Date)
+	if err != nil {
+		return nil, errors.Wrap("failed to parse date", err)
+	}
+
+	return &date, nil
+}
+
+// ParseTrackNum for getting track number in int format.
+func (t *Track) ParseTrackNum() (int, error) {
+	trackNumber, err := strconv.Atoi(t.TrackNumber)
+	if err != nil {
+		return 0, errors.Wrap("failed to parse track number", err)
+	}
+
+	return trackNumber, nil
+}
+
+// Year must for getting date in time format.
+func (t *Track) Year() time.Time {
+	date, err := time.Parse("2006", t.Date)
+	if err != nil {
+		return time.Time{}
+	}
+
+	return date
+}
+
+// TrackNum must for getting track number in int format.
+func (t *Track) TrackNum() int {
+	trackNumber, err := strconv.Atoi(t.TrackNumber)
+	if err != nil {
+		return -1
+	}
+
+	return trackNumber
 }
