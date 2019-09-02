@@ -44,7 +44,10 @@ func (err *WrappedError) Unwrap() error {
 }
 
 func (err *WrappedError) Error() string {
-	return fmt.Sprintf("%s: %s", err.message, err.wrapped.Error())
+	if err.wrapped != nil {
+		return fmt.Sprintf("%s: %s", err.message, err.wrapped.Error())
+	}
+	return err.message
 }
 
 func (err *WrappedError) Format(f fmt.State, c rune) { // implements fmt.Formatter
